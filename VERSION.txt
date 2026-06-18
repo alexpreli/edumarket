@@ -1,0 +1,15 @@
+App Name:    EduMarket
+Version:     1.0.0
+Build:       1
+Date:        2026-06-19
+Description: Initial release – Kotlin/Compose migration from Java SellingCoursesApp
+
+Changelog:
+  1.0.0 – Initial Kotlin implementation
+          - Migrated from Java (SellingCoursesApp) to Kotlin + Jetpack Compose
+          - Room local database for users, courses and cart
+          - DataStore for session + language preference
+          - Retrofit HTTP requests (courses mock + OpenLibrary API)
+          - Navigation Component with auth/main flow
+          - Login & Register screens
+          - Promo logic: every 3 purchases = 1 free course

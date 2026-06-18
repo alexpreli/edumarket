@@ -1,0 +1,34 @@
+# Built artifacts
+/build
+.gradle
+.kotlin
+
+# IDE configurations and local settings
+.idea/
+*.iml
+*.ipr
+*.iws
+local.properties
+
+# Keystores and sensitive keys
+*.jks
+*.keystore
+*.pk8
+*.pem
+
+# Log files
+*.log
+
+# NDK / C++ build outputs
+.externalNativeBuild
+.cxx
+ndkBuild
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Captures and profiling
+captures/
+
+implementation-info.docx
