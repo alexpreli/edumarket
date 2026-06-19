@@ -2,7 +2,7 @@
 
 This project was developed for the **"Mobile Device Software Development" (DSDM)** course. The application is built natively for the Android operating system, leveraging the latest modern technologies from the ecosystem (Jetpack Compose, Room, and Retrofit).
 
-## 🚀 Key Features (According to Project Requirements)
+## Key Features (According to Project Requirements)
 
 *   **Full Authentication:** Secure Registration (Register) and Login systems for users.
 *   **Local Database (Room):** Persistent storage for educational digital products, shopping cart data, and offline capabilities.
@@ -10,7 +10,7 @@ This project was developed for the **"Mobile Device Software Development" (DSDM)
 *   **Modern & Reactive UI:** Built entirely with Jetpack Compose, ensuring fluid navigation between screens and an adaptive layout without overlapping elements.
 *   **Local State Management (DataStore/SharedPreferences):** Local storage for user session tokens and system preferences.
 
-## 🛠️ Tech Stack & Architecture
+## Tech Stack & Architecture
 
 The application is fully optimized using a clean, modern, and stable architecture:
 
@@ -24,9 +24,3 @@ The application is fully optimized using a clean, modern, and stable architectur
 *   **Networking:** Retrofit 2.11.0 + OkHttp 4.12.0 Logging Interceptor
 *   **Image Loading:** Coil Compose 2.7.0
 
-## 👥 Team & Agile Management
-
-The project is developed as a team effort. Task assignment, workflow tracking, and workload distribution are managed transparently using a dedicated **Trello Board** (structured with *To Do*, *Doing*, *QA*, and *Done* stages), aligning with software industry best practices.
-
----
-*The application is highly optimized to run smoothly on both Android emulators and physical devices, strictly adhering to the "NO CRASH" grading policy.*
