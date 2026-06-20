@@ -7,13 +7,15 @@ import com.edumarket.EduMarketApp
 import com.edumarket.data.local.dao.CartDao
 import com.edumarket.data.local.dao.CourseDao
 import com.edumarket.data.local.dao.UserDao
+import com.edumarket.data.local.dao.OrderDao
 import com.edumarket.data.local.entity.CartItemEntity
 import com.edumarket.data.local.entity.CourseEntity
+import com.edumarket.data.local.entity.OrderEntity
 import com.edumarket.data.local.entity.UserEntity
 
 @Database(
-    entities = [UserEntity::class, CourseEntity::class, CartItemEntity::class],
-    version = 2,
+    entities = [UserEntity::class, CourseEntity::class, CartItemEntity::class, OrderEntity::class],
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -21,6 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun courseDao(): CourseDao
     abstract fun cartDao(): CartDao
+    abstract fun orderDao(): OrderDao
 
     companion object {
         @Volatile

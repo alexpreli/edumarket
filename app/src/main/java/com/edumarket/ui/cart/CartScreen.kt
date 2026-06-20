@@ -43,7 +43,8 @@ import com.edumarket.viewmodel.CartViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreen(
-    cartViewModel: CartViewModel = viewModel()
+    cartViewModel: CartViewModel = viewModel(),
+    ordersViewModel: com.edumarket.viewmodel.OrdersViewModel = viewModel()
 ) {
     val cartItems by cartViewModel.cartItems.collectAsStateWithLifecycle()
     val lang = com.edumarket.ui.theme.LocalAppLanguage.current
@@ -95,6 +96,14 @@ fun CartScreen(
 
             
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                val totalPrice = cartItems.filter { !it.isFree }.sumOf { it.price }
+                Text(
+                    text = if (lang == "ro") "Preț Total: $totalPrice RON" else "Total Price: $totalPrice RON",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
                 Button(
                     onClick  = { showOrderDialog = true },
                     modifier = Modifier.fillMaxWidth()
@@ -120,6 +129,7 @@ fun CartScreen(
             items = cartItems,
             onDismiss = { showOrderDialog = false },
             onConfirm = {
+                ordersViewModel.saveOrder(cartItems)
                 cartViewModel.clearCart()
                 showOrderDialog = false
             }
@@ -163,6 +173,14 @@ private fun CartItemRow(
                             style      = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
                             color      = Color(0xFF388E3C)
+                        )
+                    } else {
+                        Spacer(Modifier.size(8.dp))
+                        Text(
+                            text       = "${item.price} RON",
+                            style      = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color      = MaterialTheme.colorScheme.primary
                         )
                     }
                 }
@@ -219,13 +237,21 @@ private fun CartOrderDialog(
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold
                             )
+                        } else {
+                            Text(
+                                text  = "${item.price} RON",
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
                 }
                 Spacer(Modifier.height(8.dp))
+                val totalPrice = items.filter { !it.isFree }.sumOf { it.price }
                 Text(
-                    text  = if (lang == "en") "Total: ${items.count { !it.isFree }} paid + ${items.count { it.isFree }} free"
-                            else "Total: ${items.count { !it.isFree }} plătite + ${items.count { it.isFree }} gratuite",
+                    text  = if (lang == "en") "Total: ${items.count { !it.isFree }} paid + ${items.count { it.isFree }} free\nTotal Price: $totalPrice RON"
+                            else "Total: ${items.count { !it.isFree }} plătite + ${items.count { it.isFree }} gratuite\nPreț Total: $totalPrice RON",
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold
                 )
@@ -233,13 +259,15 @@ private fun CartOrderDialog(
         },
         confirmButton = {
             Button(onClick = {
-                val paidCourses = items.filter { !it.isFree }.joinToString("\n") { "- ${it.courseName}" }
+                val paidCourses = items.filter { !it.isFree }.joinToString("\n") { "- ${it.courseName} (${it.price} RON)" }
                 val freeCourses = items.filter { it.isFree }.joinToString("\n") { "- ${it.courseName} (${com.edumarket.ui.theme.AppStrings.freeCourseBtn(lang)})" }
+                val totalPrice = items.filter { !it.isFree }.sumOf { it.price }
                 
                 val messageBuilder = java.lang.StringBuilder()
                 messageBuilder.append(com.edumarket.ui.theme.AppStrings.orderMessagePart1(lang)).append("\n\n")
                 if (paidCourses.isNotEmpty()) messageBuilder.append(paidCourses).append("\n\n")
                 if (freeCourses.isNotEmpty()) messageBuilder.append(freeCourses).append("\n\n")
+                messageBuilder.append("Total: $totalPrice RON\n\n")
                 messageBuilder.append(com.edumarket.ui.theme.AppStrings.orderMessagePart2(lang))
                 
                 com.edumarket.utils.WhatsAppUtils.openWhatsApp(

@@ -46,7 +46,8 @@ import com.edumarket.viewmodel.HomeViewModel
 fun ProfileScreen(
     authViewModel: AuthViewModel,
     homeViewModel: HomeViewModel = viewModel(),
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    onNavigateToOrders: () -> Unit
 ) {
     val state by homeViewModel.uiState.collectAsStateWithLifecycle()
     val userEmail by authViewModel.isLoggedIn.collectAsStateWithLifecycle()
@@ -186,13 +187,23 @@ fun ProfileScreen(
                     Spacer(Modifier.height(8.dp))
                     ContactRow(label = com.edumarket.ui.theme.AppStrings.appNameLabel(lang), value = "EduMarket")
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = com.edumarket.ui.theme.AppStrings.appVersion(lang),  value = "3.0.0")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.appVersion(lang),  value = com.edumarket.BuildConfig.VERSION_NAME)
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
                     ContactRow(label = com.edumarket.ui.theme.AppStrings.appPlatform(lang), value = "Android / Kotlin + Compose")
                 }
             }
 
             
+            Button(
+                onClick  = onNavigateToOrders,
+                modifier = Modifier.fillMaxWidth(),
+                colors   = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary
+                )
+            ) {
+                Text(com.edumarket.ui.theme.AppStrings.myOrders(lang), fontWeight = FontWeight.Bold)
+            }
+
             Button(
                 onClick  = {
                     authViewModel.logout()

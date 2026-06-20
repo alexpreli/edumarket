@@ -8,5 +8,6 @@ data class CartItemEntity(
     @PrimaryKey val courseId: Int,
     val courseName: String,
     val courseNumber: String,
-    val isFree: Boolean = false
+    val isFree: Boolean = false,
+    val price: Int = 0
 )

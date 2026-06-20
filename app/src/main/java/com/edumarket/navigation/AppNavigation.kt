@@ -150,7 +150,15 @@ fun AppNavigation(
                             navController.navigate(Screen.AuthGraph.route) {
                                 popUpTo(Screen.MainGraph.route) { inclusive = true }
                             }
+                        },
+                        onNavigateToOrders = {
+                            navController.navigate(Screen.Orders.route)
                         }
+                    )
+                }
+                composable(Screen.Orders.route) {
+                    com.edumarket.ui.orders.OrdersScreen(
+                        onNavigateBack = { navController.popBackStack() }
                     )
                 }
             }

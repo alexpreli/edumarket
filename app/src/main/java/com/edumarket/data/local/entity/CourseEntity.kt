@@ -22,5 +22,6 @@ data class CourseEntity(
     val durationRo: String,
     val trainingCentreEn: String,
     val trainingCentreRo: String,
-    val teacherName: String
+    val teacherName: String,
+    val price: Int = 0
 )

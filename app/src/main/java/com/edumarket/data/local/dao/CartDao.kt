@@ -22,6 +22,9 @@ interface CartDao {
     @Query("SELECT COUNT(*) FROM cart_items")
     suspend fun count(): Int
 
+    @Query("SELECT COUNT(*) FROM cart_items WHERE isFree = 0")
+    suspend fun getPaidCount(): Int
+
     @Query("DELETE FROM cart_items")
     suspend fun clearCart()
 }

@@ -89,13 +89,26 @@ fun CourseCard(
 
             
             Column(modifier = Modifier.padding(12.dp)) {
-                Text(
-                    text       = course.name,
-                    style      = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    maxLines   = 1,
-                    overflow   = TextOverflow.Ellipsis
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text       = course.name,
+                        style      = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        maxLines   = 1,
+                        overflow   = TextOverflow.Ellipsis,
+                        modifier   = Modifier.weight(1f).padding(end = 8.dp)
+                    )
+                    Text(
+                        text       = if (course.isFree) "GRATUIT" else "${course.price} RON",
+                        fontWeight = FontWeight.ExtraBold,
+                        color      = if (course.isFree) Color(0xFF4CAF50) else MaterialTheme.colorScheme.primary,
+                        style      = MaterialTheme.typography.titleMedium
+                    )
+                }
 
                 Spacer(Modifier.height(4.dp))
 

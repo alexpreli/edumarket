@@ -53,7 +53,8 @@ import com.edumarket.viewmodel.HomeViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = viewModel()
+    homeViewModel: HomeViewModel = viewModel(),
+    ordersViewModel: com.edumarket.viewmodel.OrdersViewModel = viewModel()
 ) {
     val state by homeViewModel.uiState.collectAsStateWithLifecycle()
     var showSubjectDropdown by remember { mutableStateOf(false) }
@@ -73,7 +74,11 @@ fun HomeScreen(
             courses     = state.courses.filter { it.isSelected || it.isFree },
             language    = state.language,
             onDismiss   = { homeViewModel.dismissOrderDialog() },
-            onClearCart = { homeViewModel.clearCart() }
+            onClearCart = { homeViewModel.clearCart() },
+            onConfirmOrder = { courses -> 
+                ordersViewModel.saveOrderFromUiModels(courses)
+                homeViewModel.clearCart() 
+            }
         )
     }
 
@@ -323,7 +328,8 @@ private fun OrderDialog(
     courses: List<CourseUiModel>,
     language: String,
     onDismiss: () -> Unit,
-    onClearCart: () -> Unit
+    onClearCart: () -> Unit,
+    onConfirmOrder: (List<CourseUiModel>) -> Unit
 ) {
     val lang = com.edumarket.ui.theme.LocalAppLanguage.current
     val context = androidx.compose.ui.platform.LocalContext.current
@@ -354,13 +360,21 @@ private fun OrderDialog(
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold
                             )
+                        } else {
+                            Text(
+                                text  = "${course.price} RON",
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
                 }
                 Spacer(Modifier.height(8.dp))
+                val totalPrice = courses.filter { !it.isFree }.sumOf { it.price }
                 Text(
-                    text  = if (lang == "en") "Total: ${courses.count { !it.isFree }} paid + ${courses.count { it.isFree }} free"
-                            else "Total: ${courses.count { !it.isFree }} plătite + ${courses.count { it.isFree }} gratuite",
+                    text  = if (lang == "en") "Total: ${courses.count { !it.isFree }} paid + ${courses.count { it.isFree }} free\nTotal Price: $totalPrice RON"
+                            else "Total: ${courses.count { !it.isFree }} plătite + ${courses.count { it.isFree }} gratuite\nPreț Total: $totalPrice RON",
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold
                 )
@@ -378,13 +392,15 @@ private fun OrderDialog(
                     Button(
                         modifier = Modifier.width(150.dp),
                         onClick = {
-                        val paidCourses = courses.filter { !it.isFree }.joinToString("\n") { "- ${it.name}" }
+                        val paidCourses = courses.filter { !it.isFree }.joinToString("\n") { "- ${it.name} (${it.price} RON)" }
                         val freeCourses = courses.filter { it.isFree }.joinToString("\n") { "- ${it.name} (${com.edumarket.ui.theme.AppStrings.freeCourseBtn(lang)})" }
+                        val totalPrice = courses.filter { !it.isFree }.sumOf { it.price }
                         
                         val messageBuilder = StringBuilder()
                         messageBuilder.append(com.edumarket.ui.theme.AppStrings.orderMessagePart1(lang)).append("\n\n")
                         if (paidCourses.isNotEmpty()) messageBuilder.append(paidCourses).append("\n\n")
                         if (freeCourses.isNotEmpty()) messageBuilder.append(freeCourses).append("\n\n")
+                        messageBuilder.append("Total: $totalPrice RON\n\n")
                         messageBuilder.append(com.edumarket.ui.theme.AppStrings.orderMessagePart2(lang))
                         
                         com.edumarket.utils.WhatsAppUtils.openWhatsApp(
@@ -393,6 +409,7 @@ private fun OrderDialog(
                             message = messageBuilder.toString(),
                             lang = lang
                         )
+                        onConfirmOrder(courses)
                         onDismiss()
                     }) { Text(com.edumarket.ui.theme.AppStrings.confirm(lang)) }
                 }

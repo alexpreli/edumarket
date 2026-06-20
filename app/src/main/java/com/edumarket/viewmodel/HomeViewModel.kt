@@ -29,7 +29,8 @@ data class CourseUiModel(
     val trainingCentre: String,
     val teacherName: String,
     val isSelected: Boolean = false, 
-    val isFree: Boolean = false      
+    val isFree: Boolean = false,
+    val price: Int = 0
 )
 
 data class BookUiModel(
@@ -70,7 +71,6 @@ class HomeViewModel : ViewModel() {
     }
 
     
-    private val _boughtCount       = MutableStateFlow(0)
     private val _showFreeDialog    = MutableStateFlow(false)
     private val _showOrderDialog   = MutableStateFlow(false)
     private val _selectedSubject   = MutableStateFlow("ALL")
@@ -86,7 +86,6 @@ class HomeViewModel : ViewModel() {
         userPrefs.language,
         _selectedSubject,
         _books,
-        _boughtCount,
         _showFreeDialog,
         _showOrderDialog,
         _coursesLoading,
@@ -101,12 +100,13 @@ class HomeViewModel : ViewModel() {
         val subject        = args[3] as String
         @Suppress("UNCHECKED_CAST")
         val books          = args[4] as List<BookUiModel>
-        val bought         = args[5] as Int
-        val freeDialog     = args[6] as Boolean
-        val orderDialog    = args[7] as Boolean
-        val cLoading       = args[8] as Boolean
-        val bLoading       = args[9] as Boolean
-        val err            = args[10] as String?
+        val freeDialog     = args[5] as Boolean
+        val orderDialog    = args[6] as Boolean
+        val cLoading       = args[7] as Boolean
+        val bLoading       = args[8] as Boolean
+        val err            = args[9] as String?
+
+        val bought         = cartItems.count { !it.isFree }
 
         val cartIds      = cartItems.map { it.courseId }.toSet()
         val freeIds      = cartItems.filter { it.isFree }.map { it.courseId }.toSet()
@@ -200,11 +200,13 @@ class HomeViewModel : ViewModel() {
                     courseId     = course.id,
                     courseName   = course.name,
                     courseNumber = course.backgroundSrc, 
-                    isFree       = false
+                    isFree       = false,
+                    price        = course.price
                 )
             )
-            _boughtCount.value = _boughtCount.value + 1
-            if (_boughtCount.value % COURSES_UNTIL_GIFT == 0) {
+            
+            val paidCount = cartDao.getPaidCount()
+            if (paidCount > 0 && paidCount % COURSES_UNTIL_GIFT == 0) {
                 _showFreeDialog.value = true
             }
         }
@@ -213,9 +215,6 @@ class HomeViewModel : ViewModel() {
     fun removeFromCart(courseId: Int, isFree: Boolean) {
         viewModelScope.launch {
             cartDao.deleteById(courseId)
-            if (!isFree) {
-                _boughtCount.value = maxOf(0, _boughtCount.value - 1)
-            }
         }
     }
 
@@ -248,7 +247,6 @@ class HomeViewModel : ViewModel() {
     fun clearCart() {
         viewModelScope.launch {
             cartDao.clearCart()
-            _boughtCount.value = 0
             _showOrderDialog.value = false
         }
     }
@@ -276,7 +274,8 @@ private fun CourseEntity.toUiModel(
     trainingCentre= if (lang == "en") trainingCentreEn else trainingCentreRo,
     teacherName   = teacherName,
     isSelected    = isSelected,
-    isFree        = isFree
+    isFree        = isFree,
+    price         = price
 )
 
 private fun CourseEntity.subjectsEnList(): List<String> =
@@ -302,5 +301,6 @@ private fun CourseDto.toEntity(id: Int): CourseEntity = CourseEntity(
     durationRo    = duration.ro,
     trainingCentreEn = trainingCentre.en,
     trainingCentreRo = trainingCentre.ro,
-    teacherName   = teacherName
+    teacherName   = teacherName,
+    price         = price
 )

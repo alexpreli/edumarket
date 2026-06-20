@@ -29,5 +29,6 @@ data class CourseDto(
     @SerializedName("background_src") val backgroundSrc: String = "",
     @SerializedName("duration")     val duration: MultiLangText = MultiLangText(),
     @SerializedName("training_centre") val trainingCentre: MultiLangText = MultiLangText(),
-    @SerializedName("teacher_name") val teacherName: String = ""
+    @SerializedName("teacher_name") val teacherName: String = "",
+    @SerializedName("price")        val price: Int = 0
 )

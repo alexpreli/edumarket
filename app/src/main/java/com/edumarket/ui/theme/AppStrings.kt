@@ -44,6 +44,11 @@ object AppStrings {
     fun cartOrderTitle(lang: String) = if (lang == "ro") "Plasează Comanda" else "Place Order"
     fun cartOrderContent(lang: String) = if (lang == "ro") "Ești sigur că vrei să finalizezi comanda pentru aceste cursuri?" else "Are you sure you want to checkout these courses?"
     fun cartOrderSuccess(lang: String) = if (lang == "ro") "Comanda a fost plasată cu succes!" else "Order placed successfully!"
+    
+    fun myOrders(lang: String) = if (lang == "ro") "Istoric Comenzi" else "My Orders"
+    fun noPastOrders(lang: String) = if (lang == "ro") "Nu ai nicio comandă plasată." else "You have no past orders."
+    fun orderDate(lang: String, date: String) = if (lang == "ro") "Dată: $date" else "Date: $date"
+    fun orderStatus(lang: String, status: String) = if (lang == "ro") "Status: $status" else "Status: $status"
 
     
     fun profileTitle(lang: String) = if (lang == "ro") "Profil Utilizator" else "User Profile"

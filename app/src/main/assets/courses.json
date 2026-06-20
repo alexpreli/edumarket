@@ -39,7 +39,8 @@
       "en": "Innovation Lab",
       "ro": "Laboratorul de Inovatie"
     },
-    "teacher_name": "Maria Popescu"
+    "teacher_name": "Maria Popescu",
+    "price": 49
   },
   {
     "course_id": "02",
@@ -79,7 +80,8 @@
       "en": "IT Institute",
       "ro": "Institutul de IT"
     },
-    "teacher_name": "Andrei Popa"
+    "teacher_name": "Andrei Popa",
+    "price": 49
   },
   {
     "course_id": "03",
@@ -96,7 +98,7 @@
     },
     "description": {
       "ro": "Exploreaza Java intr-un curs captivant! Iti vom arata cum sa dezvolti aplicatii robuste folosind acest limbaj popular. Acoperim sintaxa, structuri de date si programare orientata pe obiect.",
-      "en": "Explore Java in an engaging course! We’ll show you how to develop robust applications using this popular language. We cover syntax, data structures, and object-oriented programming."
+      "en": "Explore Java in an engaging course! We\u00e2\u20ac\u2122ll show you how to develop robust applications using this popular language. We cover syntax, data structures, and object-oriented programming."
     },
     "subjects": {
       "ro": [
@@ -121,7 +123,8 @@
       "en": "IT Institute",
       "ro": "Institutul de IT"
     },
-    "teacher_name": "Alex Ionescu"
+    "teacher_name": "Alex Ionescu",
+    "price": 149
   },
   {
     "course_id": "04",
@@ -163,7 +166,8 @@
       "en": "IT Institute",
       "ro": "Institutul de IT"
     },
-    "teacher_name": "Andrei Popa"
+    "teacher_name": "Andrei Popa",
+    "price": 199
   },
   {
     "course_id": "05",
@@ -203,7 +207,8 @@
       "en": "Code Hub",
       "ro": "Centrul de Codare"
     },
-    "teacher_name": "Maria Popescu"
+    "teacher_name": "Maria Popescu",
+    "price": 299
   },
   {
     "course_id": "06",
@@ -245,7 +250,8 @@
       "en": "IT Institute",
       "ro": "Institutul de IT"
     },
-    "teacher_name": "Maria Popescu"
+    "teacher_name": "Maria Popescu",
+    "price": 299
   },
   {
     "course_id": "07",
@@ -287,7 +293,8 @@
       "en": "IT Institute",
       "ro": "Institutul de IT"
     },
-    "teacher_name": "Alex Ionescu"
+    "teacher_name": "Alex Ionescu",
+    "price": 49
   },
   {
     "course_id": "08",
@@ -333,7 +340,8 @@
       "en": "Tech Academy",
       "ro": "Academia Tech"
     },
-    "teacher_name": "Michael Smith"
+    "teacher_name": "Michael Smith",
+    "price": 99
   },
   {
     "course_id": "09",
@@ -375,7 +383,8 @@
       "en": "Code Hub",
       "ro": "Centrul de Codare"
     },
-    "teacher_name": "David Miller"
+    "teacher_name": "David Miller",
+    "price": 149
   },
   {
     "course_id": "10",
@@ -419,6 +428,7 @@
       "en": "Innovation Lab",
       "ro": "Laboratorul de Inovatie"
     },
-    "teacher_name": "David Miller"
+    "teacher_name": "David Miller",
+    "price": 149
   }
 ]
