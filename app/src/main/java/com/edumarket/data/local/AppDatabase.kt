@@ -15,7 +15,7 @@ import com.edumarket.data.local.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class, CourseEntity::class, CartItemEntity::class, OrderEntity::class],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

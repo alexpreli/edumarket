@@ -53,10 +53,12 @@ import com.edumarket.viewmodel.HomeViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    authViewModel: com.edumarket.viewmodel.AuthViewModel,
     homeViewModel: HomeViewModel = viewModel(),
     ordersViewModel: com.edumarket.viewmodel.OrdersViewModel = viewModel()
 ) {
     val state by homeViewModel.uiState.collectAsStateWithLifecycle()
+    val userEmail by authViewModel.userEmail.collectAsStateWithLifecycle()
     var showSubjectDropdown by remember { mutableStateOf(false) }
 
     
@@ -76,7 +78,7 @@ fun HomeScreen(
             onDismiss   = { homeViewModel.dismissOrderDialog() },
             onClearCart = { homeViewModel.clearCart() },
             onConfirmOrder = { courses -> 
-                ordersViewModel.saveOrderFromUiModels(courses)
+                ordersViewModel.saveOrderFromUiModels(courses, userEmail ?: "")
                 homeViewModel.clearCart() 
             }
         )

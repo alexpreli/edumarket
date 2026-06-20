@@ -43,10 +43,12 @@ import com.edumarket.viewmodel.CartViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreen(
+    authViewModel: com.edumarket.viewmodel.AuthViewModel,
     cartViewModel: CartViewModel = viewModel(),
     ordersViewModel: com.edumarket.viewmodel.OrdersViewModel = viewModel()
 ) {
     val cartItems by cartViewModel.cartItems.collectAsStateWithLifecycle()
+    val userEmail by authViewModel.userEmail.collectAsStateWithLifecycle()
     val lang = com.edumarket.ui.theme.LocalAppLanguage.current
     val context = androidx.compose.ui.platform.LocalContext.current
     var showOrderDialog by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
@@ -129,7 +131,7 @@ fun CartScreen(
             items = cartItems,
             onDismiss = { showOrderDialog = false },
             onConfirm = {
-                ordersViewModel.saveOrder(cartItems)
+                ordersViewModel.saveOrder(cartItems, userEmail ?: "")
                 cartViewModel.clearCart()
                 showOrderDialog = false
             }

@@ -50,7 +50,8 @@ fun ProfileScreen(
     onNavigateToOrders: () -> Unit
 ) {
     val state by homeViewModel.uiState.collectAsStateWithLifecycle()
-    val userEmail by authViewModel.isLoggedIn.collectAsStateWithLifecycle()
+    val userEmail by authViewModel.userEmail.collectAsStateWithLifecycle()
+    val userName by authViewModel.userName.collectAsStateWithLifecycle()
 
     val isEnglish = state.language == "en"
 
@@ -165,11 +166,9 @@ fun ProfileScreen(
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(12.dp))
-                    ContactRow(label = com.edumarket.ui.theme.AppStrings.contactName(lang),  value = "Prelipceanu Alexandru")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.contactName(lang),  value = userName ?: "Unknown User")
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = com.edumarket.ui.theme.AppStrings.email(lang), value = "alexleoca7@gmail.com")
-                    HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = com.edumarket.ui.theme.AppStrings.contactPhone(lang), value = "+40 736 321 059")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.email(lang), value = userEmail ?: "Unknown Email")
                 }
             }
 

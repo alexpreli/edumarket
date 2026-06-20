@@ -9,5 +9,6 @@ data class OrderEntity(
     val date: String,
     val coursesSummary: String,
     val status: String = "Sent to WhatsApp",
-    val totalPrice: Int = 0
+    val totalPrice: Int = 0,
+    val userEmail: String = ""
 )

@@ -21,7 +21,7 @@ class OrdersViewModel : ViewModel() {
         .getAllOrders()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun saveOrder(items: List<CartItemEntity>) {
+    fun saveOrder(items: List<CartItemEntity>, userEmail: String) {
         if (items.isEmpty()) return
         
         viewModelScope.launch {
@@ -42,14 +42,15 @@ class OrdersViewModel : ViewModel() {
             val newOrder = OrderEntity(
                 date = currentDate,
                 coursesSummary = summaryBuilder.toString().trim(),
-                totalPrice = total
+                totalPrice = total,
+                userEmail = userEmail
             )
             
             orderDao.insert(newOrder)
         }
     }
 
-    fun saveOrderFromUiModels(courses: List<com.edumarket.viewmodel.CourseUiModel>) {
+    fun saveOrderFromUiModels(courses: List<com.edumarket.viewmodel.CourseUiModel>, userEmail: String) {
         if (courses.isEmpty()) return
         viewModelScope.launch {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
@@ -69,7 +70,8 @@ class OrdersViewModel : ViewModel() {
             val newOrder = OrderEntity(
                 date = currentDate,
                 coursesSummary = summaryBuilder.toString().trim(),
-                totalPrice = total
+                totalPrice = total,
+                userEmail = userEmail
             )
             
             orderDao.insert(newOrder)

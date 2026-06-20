@@ -1,10 +1,15 @@
 App Name:    EduMarket
-Version:     1.0.0
-Build:       1
-Date:        2026-06-19
-Description: Initial release – Kotlin/Compose migration from Java SellingCoursesApp
+Version:     3.2.0
+Build:       5
+Date:        2026-06-20
+Description: Update to 3.2.0 with dynamic user email and name in Profile and Orders
 
 Changelog:
+  3.2.0 – Dynamic Profile Info & Order Email Tracking
+          - Added userEmail column to OrderEntity local db
+          - Added userName tracking to UserPreferences
+          - Profile Screen contact info is now fully dynamic from session
+          - Bumped Room version to 5 and updated schema
   1.0.0 – Initial Kotlin implementation
           - Migrated from Java (SellingCoursesApp) to Kotlin + Jetpack Compose
           - Room local database for users, courses and cart

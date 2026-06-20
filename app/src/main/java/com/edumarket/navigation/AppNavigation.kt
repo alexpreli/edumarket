@@ -138,10 +138,10 @@ fun AppNavigation(
                 route            = Screen.MainGraph.route
             ) {
                 composable(Screen.Home.route) {
-                    HomeScreen()
+                    HomeScreen(authViewModel = authViewModel)
                 }
                 composable(Screen.Cart.route) {
-                    CartScreen()
+                    CartScreen(authViewModel = authViewModel)
                 }
                 composable(Screen.Profile.route) {
                     ProfileScreen(

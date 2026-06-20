@@ -35,6 +35,12 @@ class AuthViewModel : ViewModel() {
         .map { email -> email != null }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
+    val userEmail: StateFlow<String?> = userPreferences.userEmail
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    val userName: StateFlow<String?> = userPreferences.userName
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
     
 
     fun login(email: String, password: String) {
@@ -58,7 +64,7 @@ class AuthViewModel : ViewModel() {
                 !verifyPassword(trimmedPass, user.passwordHash) ->
                     _authMessage.value = "Incorrect password. Please try again."
                 else -> {
-                    userPreferences.saveSession(trimmedEmail)
+                    userPreferences.saveSession(trimmedEmail, user.name)
                     _authMessage.value = null
                     _authSuccess.value = true
                 }
@@ -111,7 +117,7 @@ class AuthViewModel : ViewModel() {
                     passwordHash = hashPassword(trimmedPass)
                 )
             )
-            userPreferences.saveSession(trimmedEmail)
+            userPreferences.saveSession(trimmedEmail, trimmedName)
             _authMessage.value = null
             _authSuccess.value = true
         }
