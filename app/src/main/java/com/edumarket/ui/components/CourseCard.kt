@@ -78,7 +78,7 @@ fun CourseCard(
                             .padding(horizontal = 8.dp, vertical = 4.dp)
                     ) {
                         Text(
-                            text  = "FREE",
+                            text  = com.edumarket.ui.theme.AppStrings.freeCourseBtn(com.edumarket.ui.theme.LocalAppLanguage.current),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
                             fontSize   = 12.sp
@@ -112,6 +112,24 @@ fun CourseCard(
                         color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
                     )
                 }
+
+                Spacer(Modifier.height(4.dp))
+                val lang = com.edumarket.ui.theme.LocalAppLanguage.current
+                Text(
+                    text = com.edumarket.ui.theme.AppStrings.courseDuration(lang, course.duration),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+                Text(
+                    text = com.edumarket.ui.theme.AppStrings.courseTrainingCentre(lang, course.trainingCentre),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+                Text(
+                    text = com.edumarket.ui.theme.AppStrings.courseTeacher(lang, course.teacherName),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
 
                 Spacer(Modifier.height(6.dp))
 
@@ -153,14 +171,14 @@ fun CourseCard(
                             contentColor = MaterialTheme.colorScheme.error
                         )
                     ) {
-                        Text("Remove")
+                        Text(com.edumarket.ui.theme.AppStrings.removeCourse(com.edumarket.ui.theme.LocalAppLanguage.current))
                     }
                 } else {
                     Button(
                         onClick  = { onBuyClick(course) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Add to cart")
+                        Text(com.edumarket.ui.theme.AppStrings.addToCart(com.edumarket.ui.theme.LocalAppLanguage.current))
                     }
                 }
             }

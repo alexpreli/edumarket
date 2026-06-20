@@ -70,20 +70,22 @@ fun HomeScreen(
     
     if (state.showOrderDialog) {
         OrderDialog(
-            courses   = state.courses.filter { it.isSelected || it.isFree },
-            language  = state.language,
-            onDismiss = { homeViewModel.dismissOrderDialog() }
+            courses     = state.courses.filter { it.isSelected || it.isFree },
+            language    = state.language,
+            onDismiss   = { homeViewModel.dismissOrderDialog() },
+            onClearCart = { homeViewModel.clearCart() }
         )
     }
 
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
     Column(modifier = Modifier.fillMaxSize()) {
         
         TopAppBar(
             title = {
                 Column {
-                    Text("📚 EduMarket", fontWeight = FontWeight.Bold)
+                    Text("📚 ${com.edumarket.ui.theme.AppStrings.appName(lang)}", fontWeight = FontWeight.Bold)
                     Text(
-                        text  = "Digital Learning Marketplace",
+                        text  = com.edumarket.ui.theme.AppStrings.appSubtitle(lang),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
                     )
@@ -123,7 +125,7 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = if (cartCount > 0) "Place Order ($cartCount courses)" else "Place Order",
+                        text = if (cartCount > 0) "${com.edumarket.ui.theme.AppStrings.checkout(lang)} ($cartCount)" else com.edumarket.ui.theme.AppStrings.checkout(lang),
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -132,7 +134,7 @@ fun HomeScreen(
             
             item {
                 Text(
-                    text       = "📖 Featured Programming Books",
+                    text       = "📖 ${com.edumarket.ui.theme.AppStrings.booksTitle(lang)}",
                     style      = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -148,7 +150,7 @@ fun HomeScreen(
                     }
                     state.books.isEmpty() -> {
                         Text(
-                            text  = "Could not load books. Check internet connection.",
+                            text  = com.edumarket.ui.theme.AppStrings.booksError(lang),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
@@ -168,7 +170,7 @@ fun HomeScreen(
             
             item {
                 Text(
-                    text       = "🎓 Available Courses",
+                    text       = "🎓 ${com.edumarket.ui.theme.AppStrings.homeTitle(lang)}",
                     style      = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -194,7 +196,7 @@ fun HomeScreen(
                 state.courses.isEmpty() -> {
                     item {
                         Text(
-                            text  = "No courses found for the selected subject.",
+                            text  = "...",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
@@ -220,17 +222,18 @@ fun HomeScreen(
 
 @Composable
 private fun PromoBanner(boughtCount: Int, language: String) {
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
     val remaining = HomeViewModel.COURSES_UNTIL_GIFT - (boughtCount % HomeViewModel.COURSES_UNTIL_GIFT)
     val message = when {
         boughtCount == 0 ->
-            if (language == "en") "🎁 Buy ${HomeViewModel.COURSES_UNTIL_GIFT} courses, get 1 FREE!"
-            else "🎁 Cumpara ${HomeViewModel.COURSES_UNTIL_GIFT} cursuri, primesti 1 GRATUIT!"
+            if (lang == "ro") "🎁 Cumpără ${HomeViewModel.COURSES_UNTIL_GIFT} cursuri, primești 1 GRATUIT!"
+            else "🎁 Buy ${HomeViewModel.COURSES_UNTIL_GIFT} courses, get 1 FREE!"
         boughtCount % HomeViewModel.COURSES_UNTIL_GIFT == 0 ->
-            if (language == "en") "🎉 Choose your FREE course now!"
-            else "🎉 Alege acum cursul tau GRATUIT!"
+            if (lang == "ro") "🎉 Alege acum cursul tău GRATUIT!"
+            else "🎉 Choose your FREE course now!"
         else ->
-            if (language == "en") "🎁 $remaining more course${if (remaining > 1) "s" else ""} for a FREE one!"
-            else "🎁 Inca $remaining curs${if (remaining > 1) "uri" else ""} pentru unul GRATUIT!"
+            if (lang == "ro") "🎁 Încă $remaining curs${if (remaining > 1) "uri" else ""} pentru unul GRATUIT!"
+            else "🎁 $remaining more course${if (remaining > 1) "s" else ""} for a FREE one!"
     }
 
     val bgColor = if (boughtCount % HomeViewModel.COURSES_UNTIL_GIFT == 0 && boughtCount > 0)
@@ -282,19 +285,24 @@ private fun FreeCourseDialog(
     onCourseSelected: (CourseUiModel) -> Unit,
     onDismiss: () -> Unit
 ) {
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
     AlertDialog(
         onDismissRequest = onDismiss,
-        title            = { Text("🎉 Congratulations!", fontWeight = FontWeight.Bold) },
+        title            = { Text(com.edumarket.ui.theme.AppStrings.freeCourseDialogTitle(lang), fontWeight = FontWeight.Bold) },
         text             = {
             Column {
-                Text("You earned a FREE course! Select one from the list:")
+                Text(com.edumarket.ui.theme.AppStrings.freeCourseDialogText(lang))
                 Spacer(Modifier.height(12.dp))
-                availableCourses.take(5).forEach { course ->
-                    TextButton(
-                        onClick  = { onCourseSelected(course) },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(course.name, fontWeight = FontWeight.Medium)
+                if (availableCourses.isEmpty()) {
+                    Text(com.edumarket.ui.theme.AppStrings.noFreeCoursesAvailable(lang))
+                } else {
+                    availableCourses.take(5).forEach { course ->
+                        TextButton(
+                            onClick  = { onCourseSelected(course) },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(course.name, fontWeight = FontWeight.Medium)
+                        }
                     }
                 }
             }
@@ -302,7 +310,7 @@ private fun FreeCourseDialog(
         confirmButton    = {},
         dismissButton    = {
             TextButton(onClick = onDismiss) {
-                Text("Decline")
+                Text(com.edumarket.ui.theme.AppStrings.cancel(lang))
             }
         }
     )
@@ -314,15 +322,18 @@ private fun FreeCourseDialog(
 private fun OrderDialog(
     courses: List<CourseUiModel>,
     language: String,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onClearCart: () -> Unit
 ) {
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
+    val context = androidx.compose.ui.platform.LocalContext.current
     AlertDialog(
         onDismissRequest = onDismiss,
-        title            = { Text("Order Summary", fontWeight = FontWeight.Bold) },
+        title            = { Text(com.edumarket.ui.theme.AppStrings.cartOrderTitle(lang), fontWeight = FontWeight.Bold) },
         text             = {
             Column {
                 Text(
-                    text  = if (language == "en") "You are ordering:" else "Comanda ta:",
+                    text  = com.edumarket.ui.theme.AppStrings.cartOrderContent(lang),
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(Modifier.height(8.dp))
@@ -338,7 +349,7 @@ private fun OrderDialog(
                         )
                         if (course.isFree) {
                             Text(
-                                text  = "FREE",
+                                text  = com.edumarket.ui.theme.AppStrings.freeCourseBtn(lang).uppercase(),
                                 color = Color(0xFF4CAF50),
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold
@@ -348,15 +359,53 @@ private fun OrderDialog(
                 }
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text  = if (language == "en") "Total: ${courses.count { !it.isFree }} paid + ${courses.count { it.isFree }} free"
-                            else "Total: ${courses.count { !it.isFree }} platite + ${courses.count { it.isFree }} gratuite",
+                    text  = if (lang == "en") "Total: ${courses.count { !it.isFree }} paid + ${courses.count { it.isFree }} free"
+                            else "Total: ${courses.count { !it.isFree }} plătite + ${courses.count { it.isFree }} gratuite",
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold
                 )
             }
         },
         confirmButton = {
-            Button(onClick = onDismiss) { Text("OK") }
-        }
+            Column(horizontalAlignment = Alignment.End) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextButton(onClick = onDismiss) {
+                        Text(com.edumarket.ui.theme.AppStrings.cancel(lang))
+                    }
+                    Button(
+                        modifier = Modifier.width(150.dp),
+                        onClick = {
+                        val paidCourses = courses.filter { !it.isFree }.joinToString("\n") { "- ${it.name}" }
+                        val freeCourses = courses.filter { it.isFree }.joinToString("\n") { "- ${it.name} (${com.edumarket.ui.theme.AppStrings.freeCourseBtn(lang)})" }
+                        
+                        val messageBuilder = StringBuilder()
+                        messageBuilder.append(com.edumarket.ui.theme.AppStrings.orderMessagePart1(lang)).append("\n\n")
+                        if (paidCourses.isNotEmpty()) messageBuilder.append(paidCourses).append("\n\n")
+                        if (freeCourses.isNotEmpty()) messageBuilder.append(freeCourses).append("\n\n")
+                        messageBuilder.append(com.edumarket.ui.theme.AppStrings.orderMessagePart2(lang))
+                        
+                        com.edumarket.utils.WhatsAppUtils.openWhatsApp(
+                            context = context,
+                            phoneNumber = "+40736321059",
+                            message = messageBuilder.toString(),
+                            lang = lang
+                        )
+                        onDismiss()
+                    }) { Text(com.edumarket.ui.theme.AppStrings.confirm(lang)) }
+                }
+                Spacer(Modifier.height(8.dp))
+                Button(
+                    onClick = onClearCart,
+                    modifier = Modifier.width(150.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text(if (lang == "ro") "Golește coșul" else "Clear Cart")
+                }
+            }
+        },
+        dismissButton = {}
     )
 }

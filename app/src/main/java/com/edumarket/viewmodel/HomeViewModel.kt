@@ -25,13 +25,18 @@ data class CourseUiModel(
     val language: String,        
     val date: String,
     val backgroundSrc: String,
+    val duration: String,
+    val trainingCentre: String,
+    val teacherName: String,
     val isSelected: Boolean = false, 
     val isFree: Boolean = false      
 )
 
 data class BookUiModel(
     val title: String,
-    val author: String
+    val author: String,
+    val bookUrl: String = "",
+    val coverUrl: String? = null
 )
 
 data class HomeUiState(
@@ -164,9 +169,13 @@ class HomeViewModel : ViewModel() {
             runCatching {
                 val response = api.getProgrammingBooks(OPEN_LIBRARY_URL)
                 _books.value = response.works.take(10).map { work ->
+                    val bookUrl = if (work.key != null) "https://openlibrary.org${work.key}" else ""
+                    val coverUrl = if (work.coverId != null) "https://covers.openlibrary.org/b/id/${work.coverId}-M.jpg" else null
                     BookUiModel(
-                        title  = work.title,
-                        author = work.authors.firstOrNull()?.name ?: "Unknown Author"
+                        title    = work.title,
+                        author   = work.authors.firstOrNull()?.name ?: "Unknown",
+                        bookUrl  = bookUrl,
+                        coverUrl = coverUrl
                     )
                 }
             }.onFailure {
@@ -236,6 +245,14 @@ class HomeViewModel : ViewModel() {
         _showOrderDialog.value = false
     }
 
+    fun clearCart() {
+        viewModelScope.launch {
+            cartDao.clearCart()
+            _boughtCount.value = 0
+            _showOrderDialog.value = false
+        }
+    }
+
     fun setLanguage(lang: String) {
         viewModelScope.launch { userPrefs.setLanguage(lang) }
     }
@@ -255,6 +272,9 @@ private fun CourseEntity.toUiModel(
     language      = if (lang == "en") languageEn else languageRo,
     date          = date,
     backgroundSrc = backgroundSrc,
+    duration      = if (lang == "en") durationEn else durationRo,
+    trainingCentre= if (lang == "en") trainingCentreEn else trainingCentreRo,
+    teacherName   = teacherName,
     isSelected    = isSelected,
     isFree        = isFree
 )
@@ -277,5 +297,10 @@ private fun CourseDto.toEntity(id: Int): CourseEntity = CourseEntity(
     subjectsRo    = subjects.ro.joinToString(", "),
     languageEn    = language.en,
     languageRo    = language.ro,
-    backgroundSrc = backgroundSrc
+    backgroundSrc = backgroundSrc,
+    durationEn    = duration.en,
+    durationRo    = duration.ro,
+    trainingCentreEn = trainingCentre.en,
+    trainingCentreRo = trainingCentre.ro,
+    teacherName   = teacherName
 )

@@ -13,7 +13,7 @@ import com.edumarket.data.local.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class, CourseEntity::class, CartItemEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -32,7 +32,8 @@ abstract class AppDatabase : RoomDatabase() {
                     EduMarketApp.appContext,
                     AppDatabase::class.java,
                     "edumarket.db"
-                ).build().also { INSTANCE = it }
+                ).fallbackToDestructiveMigration()
+                .build().also { INSTANCE = it }
             }
         }
     }

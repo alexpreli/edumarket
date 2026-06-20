@@ -13,8 +13,8 @@ android {
         applicationId = "com.edumarket"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 3
+        versionName = "3.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -69,6 +69,8 @@ dependencies {
 
     
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     
     testImplementation(libs.junit)

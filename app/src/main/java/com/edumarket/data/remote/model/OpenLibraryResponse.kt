@@ -9,8 +9,10 @@ data class OpenLibraryResponse(
 )
 
 data class BookWork(
-    @SerializedName("title")   val title: String = "Unknown Title",
-    @SerializedName("authors") val authors: List<BookAuthor> = emptyList()
+    @SerializedName("title")    val title: String = "Unknown Title",
+    @SerializedName("authors")  val authors: List<BookAuthor> = emptyList(),
+    @SerializedName("key")      val key: String? = null,
+    @SerializedName("cover_id") val coverId: Long? = null
 )
 
 data class BookAuthor(

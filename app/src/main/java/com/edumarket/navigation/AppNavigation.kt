@@ -24,6 +24,8 @@ import com.edumarket.ui.cart.CartScreen
 import com.edumarket.ui.components.BottomNavBar
 import com.edumarket.ui.home.HomeScreen
 import com.edumarket.ui.profile.ProfileScreen
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.unit.dp
 import com.edumarket.viewmodel.AuthViewModel
 
 @Composable
@@ -51,6 +53,9 @@ fun AppNavigation(
         Screen.Home.route, Screen.Cart.route, Screen.Profile.route
     )
 
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
+
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
@@ -66,6 +71,28 @@ fun AppNavigation(
                         }
                     }
                 )
+            }
+        },
+        floatingActionButton = {
+            if (showBottomBar) {
+                androidx.compose.material3.FloatingActionButton(
+                    onClick = {
+                        com.edumarket.utils.WhatsAppUtils.openWhatsApp(
+                            context = context,
+                            phoneNumber = "+40736321059",
+                            message = com.edumarket.ui.theme.AppStrings.supportMessage(lang),
+                            lang = lang
+                        )
+                    },
+                    containerColor = androidx.compose.ui.graphics.Color(0xFF25D366),
+                    contentColor = androidx.compose.ui.graphics.Color.White
+                ) {
+                    androidx.compose.foundation.Image(
+                        painter = androidx.compose.ui.res.painterResource(id = com.edumarket.R.drawable.support_icon),
+                        contentDescription = "WhatsApp Support",
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
             }
         }
     ) { innerPadding ->

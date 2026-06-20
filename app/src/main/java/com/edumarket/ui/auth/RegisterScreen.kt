@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -63,6 +64,8 @@ fun RegisterScreen(
         }
     }
 
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -89,13 +92,13 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text       = "📚 EduMarket",
+                text       = "📚 ${com.edumarket.ui.theme.AppStrings.appName(lang)}",
                 fontSize   = 32.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color      = MaterialTheme.colorScheme.onPrimary
             )
             Text(
-                text  = "Create your account",
+                text  = com.edumarket.ui.theme.AppStrings.createAccount(lang),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
             )
@@ -114,7 +117,7 @@ fun RegisterScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text       = "Register",
+                        text       = com.edumarket.ui.theme.AppStrings.registerTitle(lang),
                         style      = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -124,7 +127,7 @@ fun RegisterScreen(
                     OutlinedTextField(
                         value         = name,
                         onValueChange = { name = it },
-                        label         = { Text("Full Name") },
+                        label         = { Text(com.edumarket.ui.theme.AppStrings.fullName(lang)) },
                         singleLine    = true,
                         modifier      = Modifier.fillMaxWidth()
                     )
@@ -134,7 +137,7 @@ fun RegisterScreen(
                     OutlinedTextField(
                         value           = email,
                         onValueChange   = { email = it },
-                        label           = { Text("Email") },
+                        label           = { Text(com.edumarket.ui.theme.AppStrings.email(lang)) },
                         singleLine      = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         modifier        = Modifier.fillMaxWidth()
@@ -145,7 +148,7 @@ fun RegisterScreen(
                     OutlinedTextField(
                         value                = password,
                         onValueChange        = { password = it },
-                        label                = { Text("Password (min. 8, upper, lower, num, special)") },
+                        label                = { Text(com.edumarket.ui.theme.AppStrings.password(lang) + " (min. 8, upper, lower, num, special)") },
                         singleLine           = true,
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions      = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -167,7 +170,7 @@ fun RegisterScreen(
                         onClick  = { authViewModel.register(name, email, password) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Create Account", fontWeight = FontWeight.Bold)
+                        Text(com.edumarket.ui.theme.AppStrings.registerBtn(lang), fontWeight = FontWeight.Bold)
                     }
 
                     Spacer(Modifier.height(8.dp))
@@ -176,9 +179,35 @@ fun RegisterScreen(
                         authViewModel.clearMessage()
                         onNavigateBack()
                     }) {
-                        Text("Already have an account? Sign In")
+                        Text(com.edumarket.ui.theme.AppStrings.backToLogin(lang))
                     }
                 }
+            }
+        }
+        
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 48.dp, end = 24.dp),
+            contentAlignment = Alignment.TopEnd
+        ) {
+            val isEnglish = lang == "en"
+            androidx.compose.foundation.layout.Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "RO",
+                    color = if (!isEnglish) Color.White else Color.White.copy(alpha = 0.5f),
+                    fontWeight = FontWeight.Bold
+                )
+                androidx.compose.material3.Switch(
+                    checked = isEnglish,
+                    onCheckedChange = { authViewModel.setLanguage(if (it) "en" else "ro") },
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Text(
+                    text = "EN",
+                    color = if (isEnglish) Color.White else Color.White.copy(alpha = 0.5f),
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }

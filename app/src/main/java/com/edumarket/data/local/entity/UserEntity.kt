@@ -13,4 +13,11 @@ data class UserEntity(
     val name: String,
     val email: String,
     val passwordHash: String
-)
+) {
+    init {
+        val namePattern = "^[\\p{L} ]{3,}\$"
+        require(name.matches(namePattern.toRegex())) {
+            "UserEntity validation failed: Full Name must be at least 3 characters and contain only letters and spaces."
+        }
+    }
+}

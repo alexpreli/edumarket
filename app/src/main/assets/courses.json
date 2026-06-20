@@ -2,7 +2,7 @@
   {
     "course_id": "01",
     "number": "1331",
-    "date": "2024-12-05",
+    "date": "2027-12-22",
     "subject_id": "1",
     "language": {
       "ro": "Engleza",
@@ -17,15 +17,34 @@
       "en": "Learn C# from scratch! This course covers the fundamental concepts of the language, data structures, and desktop application development. Enhance your programming skills!"
     },
     "subjects": {
-      "ro": ["OOP", "COLECTII", "DESKTOP", "ASINCRON"],
-      "en": ["OOP", "COLLECTIONS", "DESKTOP", "ASYNC"]
+      "ro": [
+        "OOP",
+        "COLECTII",
+        "DESKTOP",
+        "ASINCRON"
+      ],
+      "en": [
+        "OOP",
+        "COLLECTIONS",
+        "DESKTOP",
+        "ASYNC"
+      ]
     },
-    "background_src": "csharp"
+    "background_src": "csharp",
+    "duration": {
+      "en": "2 months",
+      "ro": "2 luni"
+    },
+    "training_centre": {
+      "en": "Innovation Lab",
+      "ro": "Laboratorul de Inovatie"
+    },
+    "teacher_name": "Maria Popescu"
   },
   {
     "course_id": "02",
     "number": "1332",
-    "date": "2024-11-08",
+    "date": "2026-05-29",
     "subject_id": "2",
     "language": {
       "ro": "Romana",
@@ -40,15 +59,32 @@
       "en": "Discover C++ in an intensive course! We will explore the language's syntax, object-oriented programming, and the development of high-performance applications. Start coding with confidence!"
     },
     "subjects": {
-      "ro": ["POLIMORFISM", "CONSOLA", "FUNCTII"],
-      "en": ["POLYMORPHISM", "CONSOLE", "FUNCTIONS"]
+      "ro": [
+        "POLIMORFISM",
+        "CONSOLA",
+        "FUNCTII"
+      ],
+      "en": [
+        "POLYMORPHISM",
+        "CONSOLE",
+        "FUNCTIONS"
+      ]
     },
-    "background_src": "cpp"
+    "background_src": "cpp",
+    "duration": {
+      "en": "3 months",
+      "ro": "3 luni"
+    },
+    "training_centre": {
+      "en": "IT Institute",
+      "ro": "Institutul de IT"
+    },
+    "teacher_name": "Andrei Popa"
   },
   {
     "course_id": "03",
     "number": "1333",
-    "date": "2024-11-07",
+    "date": "2026-02-11",
     "subject_id": "3",
     "language": {
       "ro": "Engleza",
@@ -63,15 +99,34 @@
       "en": "Explore Java in an engaging course! We’ll show you how to develop robust applications using this popular language. We cover syntax, data structures, and object-oriented programming."
     },
     "subjects": {
-      "ro": ["OOP", "COLECTII", "POLIMORFISM", "ANOTATII"],
-      "en": ["OOP", "COLLECTIONS", "POLYMORPHISM", "ANNOTATIONS"]
+      "ro": [
+        "OOP",
+        "COLECTII",
+        "POLIMORFISM",
+        "ANOTATII"
+      ],
+      "en": [
+        "OOP",
+        "COLLECTIONS",
+        "POLYMORPHISM",
+        "ANNOTATIONS"
+      ]
     },
-    "background_src": "java"
+    "background_src": "java",
+    "duration": {
+      "en": "3 months",
+      "ro": "3 luni"
+    },
+    "training_centre": {
+      "en": "IT Institute",
+      "ro": "Institutul de IT"
+    },
+    "teacher_name": "Alex Ionescu"
   },
   {
     "course_id": "04",
     "number": "1334",
-    "date": "2024-11-08",
+    "date": "2026-03-23",
     "subject_id": "4",
     "language": {
       "ro": "Romana",
@@ -86,15 +141,34 @@
       "en": "Learn JavaScript and bring web pages to life! This course will teach you how to create dynamic interactions and develop efficient web applications using the latest technologies."
     },
     "subjects": {
-      "ro": ["MODULE", "INCAPSULARI", "ASINCRON", "FUNCTII"],
-      "en": ["MODULES", "ENCAPSULATION", "ASYNC", "FUNCTIONS"]
+      "ro": [
+        "MODULE",
+        "INCAPSULARI",
+        "ASINCRON",
+        "FUNCTII"
+      ],
+      "en": [
+        "MODULES",
+        "ENCAPSULATION",
+        "ASYNC",
+        "FUNCTIONS"
+      ]
     },
-    "background_src": "javascript"
+    "background_src": "javascript",
+    "duration": {
+      "en": "2 months",
+      "ro": "2 luni"
+    },
+    "training_centre": {
+      "en": "IT Institute",
+      "ro": "Institutul de IT"
+    },
+    "teacher_name": "Andrei Popa"
   },
   {
     "course_id": "05",
     "number": "1335",
-    "date": "2025-04-12",
+    "date": "2027-04-26",
     "subject_id": "5",
     "language": {
       "ro": "Romana",
@@ -109,15 +183,32 @@
       "en": "Master the Spring framework for Java development! This course will guide you through basic and advanced concepts, including dependency management and scalable application development."
     },
     "subjects": {
-      "ro": ["FRAMEWORK", "CACHING", "SECURITATE"],
-      "en": ["FRAMEWORK", "CACHING", "SECURITY"]
+      "ro": [
+        "FRAMEWORK",
+        "CACHING",
+        "SECURITATE"
+      ],
+      "en": [
+        "FRAMEWORK",
+        "CACHING",
+        "SECURITY"
+      ]
     },
-    "background_src": "spring"
+    "background_src": "spring",
+    "duration": {
+      "en": "1 year",
+      "ro": "1 an"
+    },
+    "training_centre": {
+      "en": "Code Hub",
+      "ro": "Centrul de Codare"
+    },
+    "teacher_name": "Maria Popescu"
   },
   {
     "course_id": "06",
     "number": "1336",
-    "date": "2025-05-16",
+    "date": "2027-12-05",
     "subject_id": "6",
     "language": {
       "ro": "Engleza",
@@ -132,15 +223,34 @@
       "en": "Start your web design journey with HTML! In this course, you'll learn how to create page structures, add content, and use HTML tags to build interactive websites. You can even create your own BLOG!"
     },
     "subjects": {
-      "ro": ["TAGURI", "FUNCTII", "COOKIEURI", "FORMULARE"],
-      "en": ["TAGS", "FUNCTIONS", "COOKIES", "FORMS"]
+      "ro": [
+        "TAGURI",
+        "FUNCTII",
+        "COOKIEURI",
+        "FORMULARE"
+      ],
+      "en": [
+        "TAGS",
+        "FUNCTIONS",
+        "COOKIES",
+        "FORMS"
+      ]
     },
-    "background_src": "html"
+    "background_src": "html",
+    "duration": {
+      "en": "1 year",
+      "ro": "1 an"
+    },
+    "training_centre": {
+      "en": "IT Institute",
+      "ro": "Institutul de IT"
+    },
+    "teacher_name": "Maria Popescu"
   },
   {
     "course_id": "07",
     "number": "1337",
-    "date": "2025-06-03",
+    "date": "2027-11-27",
     "subject_id": "7",
     "language": {
       "ro": "Engleza",
@@ -155,15 +265,34 @@
       "en": "Enhance the appearance of your web pages with CSS! In this course, you will learn how to style and arrange HTML elements to create attractive and responsive websites."
     },
     "subjects": {
-      "ro": ["STILIZARE", "RESPONSIVE", "SELECTORI", "TRANZITII"],
-      "en": ["STYLING", "RESPONSIVE", "SELECTORS", "TRANSITIONS"]
+      "ro": [
+        "STILIZARE",
+        "RESPONSIVE",
+        "SELECTORI",
+        "TRANZITII"
+      ],
+      "en": [
+        "STYLING",
+        "RESPONSIVE",
+        "SELECTORS",
+        "TRANSITIONS"
+      ]
     },
-    "background_src": "css"
+    "background_src": "css",
+    "duration": {
+      "en": "6 weeks",
+      "ro": "6 saptamani"
+    },
+    "training_centre": {
+      "en": "IT Institute",
+      "ro": "Institutul de IT"
+    },
+    "teacher_name": "Alex Ionescu"
   },
   {
     "course_id": "08",
     "number": "1338",
-    "date": "2025-07-28",
+    "date": "2027-05-03",
     "subject_id": "8",
     "language": {
       "ro": "Romana",
@@ -178,15 +307,38 @@
       "en": "Learn PHP and develop dynamic web applications! This course covers PHP syntax, database interactions, and creating complex functionalities for websites."
     },
     "subjects": {
-      "ro": ["OOP", "SESIUNI", "MYSQL", "FORMULARE", "COOKIEURI", "SECURITATE"],
-      "en": ["OOP", "SESSIONS", "MYSQL", "FORMS", "COOKIES", "SECURITY"]
+      "ro": [
+        "OOP",
+        "SESIUNI",
+        "MYSQL",
+        "FORMULARE",
+        "COOKIEURI",
+        "SECURITATE"
+      ],
+      "en": [
+        "OOP",
+        "SESSIONS",
+        "MYSQL",
+        "FORMS",
+        "COOKIES",
+        "SECURITY"
+      ]
     },
-    "background_src": "php"
+    "background_src": "php",
+    "duration": {
+      "en": "2 months",
+      "ro": "2 luni"
+    },
+    "training_centre": {
+      "en": "Tech Academy",
+      "ro": "Academia Tech"
+    },
+    "teacher_name": "Michael Smith"
   },
   {
     "course_id": "09",
     "number": "1339",
-    "date": "2025-09-25",
+    "date": "2026-06-14",
     "subject_id": "9",
     "language": {
       "ro": "Engleza",
@@ -201,15 +353,34 @@
       "en": "Explore Python, a versatile and accessible language! This course covers basic concepts, data structures, and application development. Ideal for beginners."
     },
     "subjects": {
-      "ro": ["MODULE", "EXCEPTII", "FUNCTII", "ASINCRON"],
-      "en": ["MODULES", "EXCEPTIONS", "FUNCTIONS", "ASYNC"]
+      "ro": [
+        "MODULE",
+        "EXCEPTII",
+        "FUNCTII",
+        "ASINCRON"
+      ],
+      "en": [
+        "MODULES",
+        "EXCEPTIONS",
+        "FUNCTIONS",
+        "ASYNC"
+      ]
     },
-    "background_src": "python"
+    "background_src": "python",
+    "duration": {
+      "en": "6 weeks",
+      "ro": "6 saptamani"
+    },
+    "training_centre": {
+      "en": "Code Hub",
+      "ro": "Centrul de Codare"
+    },
+    "teacher_name": "David Miller"
   },
   {
     "course_id": "10",
     "number": "1310",
-    "date": "2025-01-10",
+    "date": "2027-03-22",
     "subject_id": "10",
     "language": {
       "ro": "Engleza",
@@ -224,9 +395,30 @@
       "en": "Learn R for data analysis! This course will teach you how to process and visualize data using advanced packages and techniques for statistics and analysis."
     },
     "subjects": {
-      "ro": ["ANALIZA", "STATISTICI", "FUNCTII", "VECTORI", "MODULE"],
-      "en": ["ANALYSIS", "STATISTICS", "FUNCTIONS", "ARRAYS", "MODULES"]
+      "ro": [
+        "ANALIZA",
+        "STATISTICI",
+        "FUNCTII",
+        "VECTORI",
+        "MODULE"
+      ],
+      "en": [
+        "ANALYSIS",
+        "STATISTICS",
+        "FUNCTIONS",
+        "ARRAYS",
+        "MODULES"
+      ]
     },
-    "background_src": "rcode"
+    "background_src": "rcode",
+    "duration": {
+      "en": "6 weeks",
+      "ro": "6 saptamani"
+    },
+    "training_centre": {
+      "en": "Innovation Lab",
+      "ro": "Laboratorul de Inovatie"
+    },
+    "teacher_name": "David Miller"
   }
 ]

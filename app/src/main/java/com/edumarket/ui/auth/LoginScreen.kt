@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -57,6 +58,8 @@ fun LoginScreen(
         }
     }
 
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -72,13 +75,13 @@ fun LoginScreen(
         ) {
             
             Text(
-                text       = "📚 EduMarket",
+                text       = "📚 ${com.edumarket.ui.theme.AppStrings.appName(lang)}",
                 fontSize   = 32.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color      = MaterialTheme.colorScheme.onPrimary
             )
             Text(
-                text     = "Your Digital Learning Marketplace",
+                text     = com.edumarket.ui.theme.AppStrings.appSubtitle(lang),
                 style    = MaterialTheme.typography.bodyMedium,
                 color    = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
             )
@@ -98,7 +101,7 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text       = "Sign In",
+                        text       = com.edumarket.ui.theme.AppStrings.loginTitle(lang),
                         style      = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -108,7 +111,7 @@ fun LoginScreen(
                     OutlinedTextField(
                         value         = email,
                         onValueChange = { email = it },
-                        label         = { Text("Email") },
+                        label         = { Text(com.edumarket.ui.theme.AppStrings.email(lang)) },
                         singleLine    = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         modifier      = Modifier.fillMaxWidth()
@@ -119,7 +122,7 @@ fun LoginScreen(
                     OutlinedTextField(
                         value                  = password,
                         onValueChange          = { password = it },
-                        label                  = { Text("Password") },
+                        label                  = { Text(com.edumarket.ui.theme.AppStrings.password(lang)) },
                         singleLine             = true,
                         visualTransformation   = PasswordVisualTransformation(),
                         keyboardOptions        = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -142,7 +145,7 @@ fun LoginScreen(
                         onClick  = { authViewModel.login(email, password) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Login", fontWeight = FontWeight.Bold)
+                        Text(com.edumarket.ui.theme.AppStrings.loginBtn(lang), fontWeight = FontWeight.Bold)
                     }
 
                     Spacer(Modifier.height(8.dp))
@@ -151,9 +154,35 @@ fun LoginScreen(
                         authViewModel.clearMessage()
                         onNavigateToRegister()
                     }) {
-                        Text("Don't have an account? Register")
+                        Text(com.edumarket.ui.theme.AppStrings.dontHaveAccount(lang))
                     }
                 }
+            }
+        }
+        
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 48.dp, end = 24.dp),
+            contentAlignment = Alignment.TopEnd
+        ) {
+            val isEnglish = lang == "en"
+            androidx.compose.foundation.layout.Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "RO",
+                    color = if (!isEnglish) Color.White else Color.White.copy(alpha = 0.5f),
+                    fontWeight = FontWeight.Bold
+                )
+                androidx.compose.material3.Switch(
+                    checked = isEnglish,
+                    onCheckedChange = { authViewModel.setLanguage(if (it) "en" else "ro") },
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Text(
+                    text = "EN",
+                    color = if (isEnglish) Color.White else Color.White.copy(alpha = 0.5f),
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }

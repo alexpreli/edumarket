@@ -7,8 +7,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.edumarket.navigation.BottomNavItem
+import com.edumarket.ui.theme.LocalAppLanguage
 
 @Composable
 fun BottomNavBar(
@@ -16,6 +16,7 @@ fun BottomNavBar(
     onItemClick: (BottomNavItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val lang = LocalAppLanguage.current
     NavigationBar(modifier = modifier.fillMaxWidth()) {
         BottomNavItem.entries.forEach { item ->
             NavigationBarItem(
@@ -24,10 +25,10 @@ fun BottomNavBar(
                 icon     = {
                     Icon(
                         imageVector        = item.icon,
-                        contentDescription = stringResource(item.labelRes)
+                        contentDescription = item.getLabel(lang)
                     )
                 },
-                label = { Text(text = stringResource(item.labelRes)) }
+                label = { Text(text = item.getLabel(lang)) }
             )
         }
     }

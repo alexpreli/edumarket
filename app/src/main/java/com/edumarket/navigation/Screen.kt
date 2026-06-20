@@ -26,9 +26,9 @@ sealed class Screen(val route: String) {
 enum class BottomNavItem(
     val screen: Screen,
     val icon: ImageVector,
-    @StringRes val labelRes: Int
+    val getLabel: (String) -> String
 ) {
-    HOME(Screen.Home,    Icons.Filled.Home,         R.string.nav_home),
-    CART(Screen.Cart,    Icons.Filled.ShoppingCart,  R.string.nav_cart),
-    PROFILE(Screen.Profile, Icons.Filled.Person,    R.string.nav_profile)
+    HOME(Screen.Home,    Icons.Filled.Home,         { lang -> com.edumarket.ui.theme.AppStrings.navHome(lang) }),
+    CART(Screen.Cart,    Icons.Filled.ShoppingCart, { lang -> com.edumarket.ui.theme.AppStrings.navCart(lang) }),
+    PROFILE(Screen.Profile, Icons.Filled.Person,    { lang -> com.edumarket.ui.theme.AppStrings.navProfile(lang) })
 }

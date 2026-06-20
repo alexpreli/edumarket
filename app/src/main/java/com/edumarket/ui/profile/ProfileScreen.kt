@@ -53,9 +53,11 @@ fun ProfileScreen(
 
     val isEnglish = state.language == "en"
 
+    val lang = com.edumarket.ui.theme.LocalAppLanguage.current
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text("👤 Profile", fontWeight = FontWeight.Bold) },
+            title = { Text("👤 ${com.edumarket.ui.theme.AppStrings.profileTitle(lang)}", fontWeight = FontWeight.Bold) },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor    = MaterialTheme.colorScheme.primary,
                 titleContentColor = MaterialTheme.colorScheme.onPrimary
@@ -91,7 +93,7 @@ fun ProfileScreen(
                     }
                     Spacer(Modifier.height(12.dp))
                     Text(
-                        text       = "Signed in",
+                        text       = com.edumarket.ui.theme.AppStrings.signedIn(lang),
                         style      = MaterialTheme.typography.labelMedium,
                         color      = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                     )
@@ -105,7 +107,7 @@ fun ProfileScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text       = "Language / Limbă",
+                        text       = com.edumarket.ui.theme.AppStrings.selectLanguage(lang),
                         style      = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -116,7 +118,7 @@ fun ProfileScreen(
                         verticalAlignment     = Alignment.CenterVertically
                     ) {
                         Text(
-                            text  = if (isEnglish) "🇬🇧 English" else "🇷🇴 Română",
+                            text  = if (isEnglish) "🇬🇧 ${com.edumarket.ui.theme.AppStrings.english(lang)}" else "🇷🇴 ${com.edumarket.ui.theme.AppStrings.romanian(lang)}",
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -143,7 +145,7 @@ fun ProfileScreen(
                     }
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text  = "Saved in DataStore – persists across app restarts",
+                        text  = com.edumarket.ui.theme.AppStrings.savedInDataStore(lang),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
                     )
@@ -157,16 +159,16 @@ fun ProfileScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text       = "Contact Information",
+                        text       = com.edumarket.ui.theme.AppStrings.contactInfo(lang),
                         style      = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(12.dp))
-                    ContactRow(label = "Name",  value = "Prelipceanu Alexandru")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.contactName(lang),  value = "Prelipceanu Alexandru")
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = "Email", value = "alexleoca7@gmail.com")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.email(lang), value = "alexleoca7@gmail.com")
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = "Phone", value = "+40 736 321 059")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.contactPhone(lang), value = "+40 736 321 059")
                 }
             }
 
@@ -177,16 +179,16 @@ fun ProfileScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text       = "App Info",
+                        text       = com.edumarket.ui.theme.AppStrings.appInfoTitle(lang),
                         style      = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(8.dp))
-                    ContactRow(label = "App Name", value = "EduMarket")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.appNameLabel(lang), value = "EduMarket")
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = "Version",  value = "1.0.0")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.appVersion(lang),  value = "3.0.0")
                     HorizontalDivider(Modifier.padding(vertical = 6.dp), color = Color(0x22000000))
-                    ContactRow(label = "Platform", value = "Android / Kotlin + Compose")
+                    ContactRow(label = com.edumarket.ui.theme.AppStrings.appPlatform(lang), value = "Android / Kotlin + Compose")
                 }
             }
 
@@ -201,7 +203,7 @@ fun ProfileScreen(
                     containerColor = MaterialTheme.colorScheme.error
                 )
             ) {
-                Text("Logout", fontWeight = FontWeight.Bold)
+                Text(com.edumarket.ui.theme.AppStrings.logout(lang), fontWeight = FontWeight.Bold)
             }
         }
     }

@@ -67,12 +67,23 @@ class AuthViewModel : ViewModel() {
     }
 
     fun register(name: String, email: String, password: String) {
+        if (name.endsWith(" ")) {
+            _authMessage.value = "Full Name cannot end with a space."
+            return
+        }
+        
         val trimmedName  = name.trim()
         val trimmedEmail = email.trim()
         val trimmedPass  = password.trim()
 
         if (trimmedName.isEmpty() || trimmedEmail.isEmpty() || trimmedPass.isEmpty()) {
             _authMessage.value = "Please fill in all fields."
+            return
+        }
+        
+        val namePattern = "^[\\p{L} ]{3,}\$"
+        if (!trimmedName.matches(namePattern.toRegex())) {
+            _authMessage.value = "Full Name must be at least 3 characters and contain only letters and spaces."
             return
         }
         
@@ -115,6 +126,10 @@ class AuthViewModel : ViewModel() {
 
     fun clearMessage() {
         _authMessage.value = null
+    }
+
+    fun setLanguage(lang: String) {
+        viewModelScope.launch { userPreferences.setLanguage(lang) }
     }
 
     

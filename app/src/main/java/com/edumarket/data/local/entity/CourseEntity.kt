@@ -17,5 +17,10 @@ data class CourseEntity(
     val subjectsRo: String,
     val languageEn: String,   
     val languageRo: String,   
-    val backgroundSrc: String 
+    val backgroundSrc: String,
+    val durationEn: String,
+    val durationRo: String,
+    val trainingCentreEn: String,
+    val trainingCentreRo: String,
+    val teacherName: String
 )
